@@ -51,12 +51,6 @@ Créer un écosystème digital permettant aux artisans du Maghreb (Tunisie, Alg�
 
 ---
 
-## 📸 Captures d’écran & démonstration
-
-*(Ajoutez ici des captures ou vidéos si disponibles)*
-
----
-
 ## 📚 Modules couverts
 
 - Gestion des utilisateurs, projets, collaborations artisanales
