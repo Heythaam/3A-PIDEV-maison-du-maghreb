@@ -1,0 +1,87 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Modifier une Collaboration{% endblock %}
+
+{% block body %}
+    <main class="collaboration-form-page py-5">
+        <br><br><br><br>
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1 class="display-4 text-primary mb-3">Modifier une Collaboration</h1>
+                <div class="separator mx-auto"></div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="card shadow-lg border-0 rounded-3">
+                        <div class="card-header bg-gradient-primary text-white p-4">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-handshake me-2"></i>
+                                Détails de la Collaboration
+                            </h3>
+                        </div>
+                        <div class="card-body p-5">
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'collaboration-form needs-validation'}}) }}
+                            
+                            {% for field in [
+                                {'field': form.name, 'icon': 'fas fa-heading', 'help': 'Donnez un nom clair à votre collaboration', 'placeholder': 'Ex: Création d\'une collection de maroquinerie'},
+                                {'field': form.image, 'icon': 'fas fa-image', 'help': 'Choisissez une image représentative', 'type': 'file'},
+                                {'field': form.description, 'icon': 'fas fa-align-left', 'help': 'Décrivez en détail votre projet', 'placeholder': 'Décrivez votre projet, vos objectifs et vos attentes...'},
+                                {'field': form.startDate, 'icon': 'fas fa-calendar-alt', 'help': 'Date de début du projet', 'placeholder': 'JJ/MM/AAAA'},
+                                {'field': form.endDate, 'icon': 'fas fa-calendar-check', 'help': 'Date de fin prévue', 'placeholder': 'JJ/MM/AAAA'},
+                                {'field': form.type, 'icon': 'fas fa-tags', 'help': 'Sélectionnez le type de collaboration', 'placeholder': 'Choisir le type'},
+                                {'field': form.budget, 'icon': 'fas fa-euro-sign', 'help': 'Budget estimé pour le projet', 'placeholder': 'Ex: 5000'},
+                                {'field': form.location, 'icon': 'fas fa-map-marker-alt', 'help': 'Lieu de la collaboration', 'placeholder': 'Ex: Paris, France'},
+                                {'field': form.prerequis, 'icon': 'fas fa-list-ul', 'help': 'Prérequis nécessaires', 'placeholder': 'Ex: 5 ans d\'expérience en maroquinerie'}
+                            ] %}
+                                <div class="form-group mb-4">
+                                    <label class="form-label fw-bold">
+                                        <i class="{{ field.icon }} me-2 text-primary"></i>
+                                        {{ form_label(field.field) }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    {% if field.type is defined and field.type == 'file' %}
+                                        <div class="custom-file-upload">
+                                            {{ form_widget(field.field, {
+                                                'attr': {
+                                                    'class': 'form-control form-control-lg file-input',
+                                                    'data-browse': 'Parcourir'
+                                                }
+                                            }) }}
+                                            <label class="file-label" for="{{ field.field.vars.id }}">
+                                                <i class="fas fa-cloud-upload-alt me-2"></i>
+                                                <span class="file-label-text">Glissez votre image ici ou cliquez pour parcourir</span>
+                                            </label>
+                                        </div>
+                                    {% else %}
+                                        {{ form_widget(field.field, {
+                                            'attr': {
+                                                'class': 'form-control form-control-lg rounded-3',
+                                                'placeholder': field.placeholder
+                                            }
+                                        }) }}
+                                    {% endif %}
+                                    <div style="color: red; list-style: none;">{{ form_errors(field.field, {'attr': {'class': 'invalid-feedback d-block mt-1'}}) }}</div>
+                                    <small class="form-text text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        {{ field.help }}
+                                    </small>
+                                </div>
+                            {% endfor %}
+
+                            <div class="mt-5">
+                                {{ form_widget(form.submit, {
+                                    'attr': {
+                                        'class': 'btn btn-primary btn-lg text-uppercase fw-bold submit-btn w-100'
+                                    }
+                                }) }}
+                            </div>
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

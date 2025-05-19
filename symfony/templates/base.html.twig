@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="images/maison_maghreb.png">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;family=Lora:ital,wght@0,400;0,700;1,400;1,700&amp;family=Muli:ital@0;1&amp;family=Merriweather&amp;display=swap" rel="stylesheet">
+	<!-- include the site bootstrap stylesheet -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="{{asset('style.css')}}">
+	<!-- include the site responsive stylesheet -->
+	<link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+    <!-- include the rtl version stylesheet -->
+    <link rel="stylesheet" href="{{asset('css/rtl.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/landing.css')}}">
+
+        {% block stylesheets %}
+        {% endblock %}
+
+       
+    </head>
+    <body>
+
+<div class="phStickyWrap phVix w-100">
+			<!-- pageHeader -->
+			<header id="pageHeader" class="position-absolute w-100">
+				<!-- htTopBar -->
+				<!-- hdHolder -->
+				<div class="hdHolder headerFixer headerFixerII">
+					<div class="container">
+						<!-- navbar -->
+						<nav class="navbar navbar-expand-md navbar-light d-block px-0 pt-2 pb-2 pt-md-2 pb-md-2 pt-lg-4 pb-lg-4">
+							<div class="row">
+								<div class="col-5 col-sm-3 col-lg-2">
+									<!-- logo -->
+									<div class="logo logoVii mt-lg-1">
+										<a href="{{ path('app_homepage') }}">
+											<img src="{{asset('images/maison_maghreb.png')}}" class="img-fluid" width="75" height="75">
+										</a>
+									</div>
+								</div>
+								<div class="col-7 col-sm-9 col-lg-10 position-static d-flex justify-content-end pt-lg-1">
+									<!-- navbar collapse -->
+									<div class="collapse navbar-collapse pageNavigationCollapse pageNavigationCollapseVii justify-content-md-end" id="pageNavigationCollapse">
+										<!-- mainNavigation -->
+										<ul class="navbar-nav mainNavigation mainNavigationVv text-capitalize">
+                                        <li class="nav-item active"><a class="nav-link" href="{{ path('app_contact') }}">Contact</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="{{ path('app_boutique') }}">Boutique</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="{{ path('app_evenement') }}">Evenement</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="{{ path('app_article') }}">Article</a></li>
+										  <li class="nav-item active"><a class="nav-link" href="{{ path('app_formation') }}">Formation</a></li>
+										  <li class="nav-item active"><a class="nav-link" href="{{ path('app_panier') }}">Panier</a></li>
+
+
+
+
+										
+											
+										
+											<li class="nav-item dropdown">
+												<a class="nav-link" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Collaborations</a>
+												<!-- dropdown menu -->
+												<div class="dropdown-menu mndDropMenu mndDropMenuSmall p-0">
+													<!-- mnDropList -->
+													<ul class="list-unstyled mnDropList mb-0 pt-1 pb-1 pt-md-4 pb-md-6">
+														<li><a href="collection-type-1.html">Mes collaborations</a></li>
+														<li><a href="{{path('app_listeCollaboration')}}">Collaborations disponibles</a></li>
+														<li><a href="{{path('app_ajoutCollaboration')}}">Ajouter une collaboration</a></li>
+													</ul>
+												</div>
+											</li>
+										
+										</ul>
+									</div>
+									<div class="d-flex align-items-center ml-3 ml-lg-6">
+                                       <!-- Icône de connexion -->
+    <a class="hdLoginOpener d-block" href="{{ path('app_login') }}" role="button" aria-expanded="false" aria-controls="hdLoginFieldCollapse">
+        <i class="icomoon-user" style="color: white; font-size: 1.5rem;"><span class="sr-only"></span></i></a>
+
+                                    <div class="d-flex align-items-center ml-3 ml-lg-6">
+
+
+									
+										<!-- hdSearchForm -->
+										<form action="#" class="hdSearchForm">
+											<!-- hdSearchOpener -->
+											<a class="hdSearchOpener hdSearchOpenerVv d-block" data-toggle="collapse" href="#hdSearchFieldCollapse" role="button" aria-expanded="false" aria-controls="hdSearchFieldCollapse">
+												<i class="icomoon-search"><span class="sr-only">search</span></i>
+											</a>
+
+											
+
+                                            
+											<!-- hdSearchFieldCollapse -->
+											<div class="collapse hdSearchFieldCollapse position-fixed w-100 h-100 d-flex align-items-center" id="hdSearchFieldCollapse">
+												<!-- hdsfcHolder -->
+												<div class="hdsfcHolder w-100 mx-auto py-4 px-3">
+													<strong class="d-block font-weight-normal mb-2">Type anything to Find in Pages</strong>
+													<div class="input-group">
+														<input type="search" class="form-control" placeholder="Search…">
+														<div class="input-group-append">
+															<button class="btn btn-secondary" type="button">
+																<i class="icomoon-search"><span class="sr-only">search</span></i>
+															</button>
+														</div>
+													</div>
+												</div>
+												<a class="hdSearchClose d-flex align-items-center justify-content-center position-absolute" data-toggle="collapse" href="#hdSearchFieldCollapse" role="button" aria-expanded="true" aria-controls="hdSearchFieldCollapse">
+													<i class="fas fa-times" aria-hidden="true"><span class="sr-only">search</span></i>
+												</a>
+											</div>
+										</form>
+										<!-- hdMenuOpener -->
+										
+										<!-- navbar toggler -->
+									
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			
+			</header>
+</div>
+
+
+
+        {% block body %}{% endblock %}
+
+	<div class="ftAreaWrap bg-secondary text-gray888">
+			<!-- footerAside -->
+			<aside class="footerAside pt-6 pb-md-3 pt-md-7 pb-lg-6 pt-lg-10 pt-xl-15 text-center text-md-left">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 col-md-6 col-lg-3 mb-6">
+							<!-- ftLogo -->
+							<div class="ftLogo mt-1 mx-auto mx-md-0">
+								<a href="/">
+									<img src="uploads/maison_maghreb.png" class="img-fluid" alt="Muzze || Art &amp; History Museum">
+								</a>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-3 mb-6">
+							<h3 class="text-white mb-4">Quick Links</h3>
+							<!-- ftQuickLinks -->
+							<ul class="list-unstyled ftQuickLinks pt-md-1 mb-0">
+								<li>
+									<a href="javascript:void(0);">About</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);">What’s On</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);">Visit Us</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);">Support</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);">News</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);">Contact</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-12 col-md-6 col-lg-3 mb-6">
+							<h3 class="text-white mb-4">Contact Us</h3>
+							<address class="ftAdr">2270 S Real Camino Lake California, US 90967</address>
+							<!-- ftContactList -->
+							<ul class="list-unstyled ftContactList mb-3">
+								<li>
+									<a href="tel:16179876543">1 (617) 987-6543</a>
+								</li>
+								<li>
+									<a href="mailto:info@museumwp.com">info@museumwp.com</a>
+								</li>
+							</ul>
+							<a href="javascript:void(0);" class="ftPinLink text-uppercase">
+								<i class="fas fa-map-marker-alt icn" aria-hidden="true"><span class="sr-only">icon</span></i>
+								Geting Here
+							</a>
+						</div>
+						<div class="col-12 col-md-6 col-lg-3 mb-6">
+							<h3 class="text-white mb-4">Newsletter</h3>
+							<!-- newsletterFormWrap -->
+							<div class="newsletterFormWrap">
+								<p class="mb-5">Sign up today to know about special events and more!</p>
+								<form action="#">
+									<input type="email" class="form-control d-block w-100 mb-3" placeholder="Email Address">
+									<input type="submit" class="btn btn-danger d-block w-100" value="Sign Up!">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<!-- pageFooter -->
+			<footer id="pageFooter" class="bg-dark text-gray777 text-center pt-6 pb-3 pt-lg-11 pb-lg-9">
+				<div class="container">
+					<!-- socialNetworks -->
+					<ul class="list-unstyled socialNetworks ftSocialNetworks d-flex flex-wrap justify-content-center mb-4">
+						<li>
+							<a href="javascript:void(0);">
+								<i class="fab fa-twitter"><span class="sr-only">twitter</span></i>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">
+								<i class="fab fa-pinterest"><span class="sr-only">pinterest</span></i>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">
+								<i class="fab fa-facebook-f"><span class="sr-only">facebook</span></i>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">
+								<i class="fab fa-instagram"><span class="sr-only">instagram</span></i>
+							</a>
+						</li>
+					</ul>
+					<p class="mb-2">Museum Template - <a href="home.html">Mad UX</a> &copy; 2020. All Rights Reserved</p>
+					<!-- ftTermLinks -->
+					<ul class="list-unstyled ftTermLinks d-flex flex-wrap justify-content-center">
+						<li>
+							<a href="javascript:void(0);">Privacy Policy</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">Terms of Use</a>
+						</li>
+					</ul>
+				</div>
+			</footer>
+		</div>
+		<div class="page-direction">
+            <div class="demo_rtl direction_switch">
+                <button class="dirBtn btnRtl">RTL</button>
+            </div>
+            <div class="demo_ltr direction_switch">
+                <button class="dirBtn btnLtr">LTR</button>
+            </div>
+        </div>
+
+</div>
+
+
+
+
+
+        <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script> 
+    <!-- include bootstrap popper JavaScript -->
+	<script src="{{ asset('js/popper.min.js')}}"></script>
+	<!-- include bootstrap JavaScript -->
+	<script src="{{ asset('js/bootstrap.min.js')}}"></script>
+	<!-- include custom JavaScript -->
+	<script src="{{ asset('js/jqueryCustom.js')}}"></script>
+    <script src="{{ asset('../../../code.jquery.com/ui/1.12.1/jquery-ui.js')}}"></script>
+	<!-- include fontawesome kit -->
+	<script src="{{ asset('../../../kit.fontawesome.com/391f644c42.html')}}"></script>
+<script>$( function() {$( ".formControlDatepicker" ).datepicker();});</script>
+	
+
+     {% block javascripts %}
+            
+        {% endblock %}
+
+
+    </body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Retrain Model {% endblock %}
+
+{% block body %}
+<br><br><br><div class="container">
+    <h1>Budget Model Retraining</h1>
+    {% if message %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% if output %}
+            <h3>Output:</h3>
+            <pre>{{ output }}</pre>
+        {% endif %}
+    {% elseif error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

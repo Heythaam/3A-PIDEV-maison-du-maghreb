@@ -1,0 +1,541 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}{{ projet.title }}{% endblock %}
+
+{% block body %}
+<main class="project-details">
+    <!-- Immersive Hero Section -->
+    <section class="hero-parallax">
+        <div class="hero-background" style="background-image: url('{{ asset('uploads/' ~ projet.image) }}')"></div>
+        <div class="hero-gradient"></div>
+        <div class="floating-nav">
+            <a href="{{ path('app_listeCollaboration') }}" class="nav-pill">
+                <i class="fas fa-arrow-left"></i>
+                <span>Retour</span>
+            </a>
+            <div class="project-status {{ projet.status|lower }}">
+                <span class="pulse"></span>
+                {{ projet.status }}
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="project-category">{{ collaboration.name }}</div>
+                <h1 class="mega-title">{{ projet.title }}</h1>
+                <div class="project-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="highlight-info">
+                            <span class="label">Durée</span>
+                            <span class="value">{{ projet.startDate|date('d M Y') }} - {{ projet.endDate|date('d M Y') }}</span>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="highlight-info">
+                            <span class="label">Location</span>
+                            <span class="value">{{ collaboration.location }}</span>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-coins"></i>
+                        <div class="highlight-info">
+                            <span class="label">Budget</span>
+                            <span class="value">{{ projet.budget }} DHM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-wrapper">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <div class="content-card glass-morphism">
+                        <!-- Project Gallery -->
+                        <div class="project-gallery">
+                            <div class="gallery-main">
+                                <img src="{{ asset('uploads/' ~ projet.image) }}" alt="{{ projet.title }}" class="main-image">
+                                <div class="gallery-actions">
+                                    <button class="action-button" onclick="toggleFullscreen()">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                    <button class="action-button" onclick="toggleLightbox()">
+                                        <i class="fas fa-search-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Description -->
+                        <div class="project-content">
+                            <div class="section-title">
+                                <h2>À propos du projet</h2>
+                                <div class="title-line"></div>
+                            </div>
+                            <div class="rich-text">
+                                {{ projet.description|raw }}
+                            </div>
+                        </div>
+
+                        <!-- Interactive Timeline -->
+                        <div class="project-timeline">
+                            <div class="section-title">
+                                <h2>Progression</h2>
+                                <div class="title-line"></div>
+                            </div>
+                            <div class="timeline-wrapper">
+                                <div class="timeline-track"></div>
+                                <div class="timeline-points">
+                                    <div class="point active">
+                                        <div class="point-date">{{ projet.startDate|date('d M Y') }}</div>
+                                        <div class="point-marker"></div>
+                                        <div class="point-label">Début</div>
+                                    </div>
+                                    <div class="point {{ projet.status == 'Completed' ? 'active' : '' }}">
+                                        <div class="point-date">{{ projet.endDate|date('d M Y') }}</div>
+                                        <div class="point-marker"></div>
+                                        <div class="point-label">Fin prévue</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="sticky-sidebar">
+                        <!-- Action Buttons -->
+                        <div class="action-card glass-morphism">
+                            <a href="{{ path('app_editProjet', {id: projet.id}) }}" class="btn btn-primary btn-glow w-100 mb-3">
+                                <i class="fas fa-edit"></i>
+                                <span>Modifier le projet</span>
+                            </a>
+                            <button onclick="confirmDelete()" class="btn btn-outline-danger w-100">
+                                <i class="fas fa-trash-alt"></i>
+                                <span>Supprimer</span>
+                            </button>
+                        </div>
+
+                        <!-- Project Stats -->
+                        <div class="stats-card glass-morphism">
+                            <h3>Statistiques</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <span class="stat-label">Status</span>
+                                        <span class="stat-value">{{ projet.status }}</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <span class="stat-label">Collaboration</span>
+                                        <span class="stat-value">{{ collaboration.name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Share Section -->
+                        <div class="share-card glass-morphism">
+                            <h3>Partager</h3>
+                            <div class="share-grid">
+                                <button class="share-button twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </button>
+                                <button class="share-button facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </button>
+                                <button class="share-button linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </button>
+                                <button class="share-button copy" onclick="copyLink()">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+    :root {
+        --primary: #0d6efd;
+        --primary-light: #0dcaf0;
+        --primary-dark: #0a58ca;
+        --glass-bg: rgba(255, 255, 255, 0.9);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Modern Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Hero Section */
+    .hero-parallax {
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120%;
+        background-size: cover;
+        background-position: center;
+        transform: translateY(0);
+        will-change: transform;
+    }
+
+    .hero-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(0,0,0,0.3) 0%,
+            rgba(0,0,0,0.8) 100%
+        );
+        backdrop-filter: blur(10px);
+    }
+
+    .floating-nav {
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+        z-index: 100;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .nav-pill {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        color: var(--primary);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .nav-pill:hover {
+        transform: translateX(-5px);
+    }
+
+    .project-status {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .pulse {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--primary);
+        position: relative;
+    }
+
+    .pulse::after {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        border: 2px solid var(--primary);
+        animation: pulse 1.5s infinite;
+    }
+
+    .hero-content {
+        position: absolute;
+        bottom: 20%;
+        width: 100%;
+        color: white;
+    }
+
+    .project-category {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+
+    .mega-title {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        line-height: 1.2;
+    }
+
+    .project-highlights {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .highlight-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .highlight-item i {
+        font-size: 1.5rem;
+        color: var(--primary-light);
+    }
+
+    .highlight-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .value {
+        font-weight: 500;
+    }
+
+    /* Content Section */
+    .content-wrapper {
+        position: relative;
+        margin-top: -100px;
+        padding-bottom: 4rem;
+        z-index: 2;
+    }
+
+    .glass-morphism {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        box-shadow: var(--glass-shadow);
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Gallery */
+    .project-gallery {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: -2rem -2rem 2rem -2rem;
+    }
+
+    .gallery-main {
+        position: relative;
+    }
+
+    .main-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .gallery-actions {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--glass-bg);
+        border: none;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .action-button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Timeline */
+    .timeline-wrapper {
+        position: relative;
+        padding: 2rem 0;
+    }
+
+    .timeline-track {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(13, 110, 253, 0.2);
+    }
+
+    .timeline-points {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .point {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .point-marker {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid var(--primary);
+        transition: all 0.3s ease;
+    }
+
+    .point.active .point-marker {
+        background: var(--primary);
+        box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
+    }
+
+    /* Buttons */
+    .btn-glow {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-glow::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(255,255,255,0.1),
+            transparent
+        );
+        transform: rotate(45deg);
+        animation: glow 3s infinite;
+    }
+
+    @keyframes glow {
+        0% { transform: rotate(45deg) translateX(-100%); }
+        100% { transform: rotate(45deg) translateX(100%); }
+    }
+
+    /* Share Grid */
+    .share-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+
+    .share-button {
+        aspect-ratio: 1;
+        border-radius: 12px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .share-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+
+    /* Animations */
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(2); opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+        .mega-title {
+            font-size: 2.5rem;
+        }
+
+        .project-highlights {
+            flex-direction: column;
+        }
+
+        .floating-nav {
+            left: 1rem;
+            right: 1rem;
+            justify-content: space-between;
+        }
+    }
+</style>
+
+<script>
+    // Parallax Effect
+    window.addEventListener('scroll', () => {
+        const parallax = document.querySelector('.hero-background');
+        const scrolled = window.pageYOffset;
+        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+    });
+
+    // Copy Link Function
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href);
+        const copyBtn = document.querySelector('.share-button.copy');
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-link"></i>';
+        }, 2000);
+    }
+
+    // Delete Confirmation
+    function confirmDelete() {
+        if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+            // Add your delete logic here
+        }
+    }
+
+    // Fullscreen Toggle
+    function toggleFullscreen() {
+        const gallery = document.querySelector('.project-gallery');
+        if (!document.fullscreenElement) {
+            gallery.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+</script>
+{% endblock %}

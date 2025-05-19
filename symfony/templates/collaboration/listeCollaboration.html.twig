@@ -1,0 +1,79 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Collaborations en Cours{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .imgHolder img {
+            transition: transform 0.3s ease;
+        }
+        .imgHolder:hover img {
+            transform: scale(1.1);
+        }
+        .btn.laodMore {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn.laodMore:hover {
+            background-color: #0056b3;
+        }
+        .currExibitColumn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .currExibitColumn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="exhibitionBlock pt-6 pb-6 pt-md-9 pb-md-9 pt-lg-11 pb-lg-13 pt-xl-20 pb-xl-21">
+            <div class="container">
+                <header class="topHeadingHead text-center mb-6 mb-lg-9 mb-xl-12">
+                    <div class="row">
+                        <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+                            <h1 class="h1Large mb-4">Collaborations en Cours</h1>
+                            <div class="fontSerif eabDescrText eabDescrTextII">
+                                <p>Impliquez-vous dans des opportunités collaboratives passionnantes avec les artisans.</p>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="current" role="tabpanel" aria-labelledby="current-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                {% for collaboration in collaborations %}
+                                <article class="currExibitColumn gridView d-flex mb-6 mb-lg-9 mb-xl-12 mx-auto">
+                                    <div class="imgHolder flex-shrink-0 mr-4 mr-lg-6 mr-xl-8" style="width: 200px; height: 200px; overflow: hidden; border-radius: 10px;">
+                                        <a href="{{ path('collaboration_details', {'id': collaboration.id}) }}">
+                                            <img src="{{ asset('uploads/' ~ collaboration.image) }}" 
+                                            alt="Collaboration Image" 
+                                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                                        </a>
+                                    </div>
+                                    <div class="descrWrap pt-md-2 pt-lg-5">
+                                        <h2 class="mb-1 mb-sm-3">
+                                            <a href="{{ path('collaboration_details', {'id': collaboration.id}) }}">{{ collaboration.name }}</a>
+                                        </h2>
+                                        <time datetime="{{ collaboration.startDate|date('Y-m-d') }}" class="d-block cecTime text-gray777">
+                                            {{ collaboration.startDate|date('d M Y') }} - {{ collaboration.endDate|date('d M Y') }}
+                                        </time>
+                                    </div>
+                                </article>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="btnHolder text-center">
+                            <a href="single-exhibition.html" class="btn laodMore btn-outline-light bdr2 btnLgMinWidth">Load More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
